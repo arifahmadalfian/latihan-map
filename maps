@@ -1,0 +1,43 @@
+import java.awt.BorderLayout;
+
+import javax.swing.JFrame;
+
+import com.teamdev.jxmaps.swing.MapView;
+import com.teamdev.jxmaps.*;
+
+public class Mapa extends MapView{
+	
+	private Map map;
+	public Mapa (String nName) {
+		JFrame frame = new JFrame(nName);
+		
+		setOnMapReadyHandler (new MapReadyHandler() {
+
+			@Override
+			public void onMapReady(MapStatus status) {
+				if(status == MapStatus.MAP_STATUS_OK) {
+					map = getMap();
+					
+					MapOptions mapOptions = new MapOptions();
+					MapTypeControlOptions controlOptions = new MapTypeControlOptions();
+					mapOptions.setMapTypeControlOptions(controlOptions);
+					
+					map.setOptions(mapOptions);
+					map.setCenter(new LatLng(-6.940724, 107.572288));
+					map.setZoom(11.0);
+					
+				}
+				
+			}
+			
+		});
+		frame.add(this, BorderLayout.CENTER);
+		frame.setSize(700, 500);
+		frame.setVisible(true);
+	}
+
+	public static void main(String[] args) {
+		Mapa temp = new Mapa ("aaaaaaaaa");
+	}
+
+}
